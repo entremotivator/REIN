@@ -1,4 +1,19 @@
 import streamlit as st
+import pandas as pd
+
+# Demo data for 10 properties
+demo_data = {
+    "Property ID": [101, 102, 103, 104, 105, 106, 107, 108, 109, 110],
+    "Address": ["123 Main St", "456 Elm St", "789 Oak St", "321 Pine St", "654 Maple St",
+                "987 Cedar St", "234 Birch St", "567 Walnut St", "890 Spruce St", "123 Cherry St"],
+    "City": ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix",
+             "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose"],
+    "Price": [250000, 300000, 275000, 320000, 280000,
+              310000, 290000, 330000, 270000, 350000]
+}
+
+# Create DataFrame from demo data
+df_properties = pd.DataFrame(demo_data)
 
 def main():
     st.title("Real Estate Investment Types Manager")
@@ -25,6 +40,12 @@ def main():
         
         selected_strategy = st.selectbox("Select an Investment Strategy", list(investment_strategies.keys()))
         st.write(investment_strategies[selected_strategy])
+        
+    elif page == "View Properties":
+        st.subheader("View Properties")
+        selected_property_id = st.selectbox("Select a Property ID", df_properties["Property ID"])
+        selected_property = df_properties[df_properties["Property ID"] == selected_property_id]
+        st.write(selected_property)
 
 if __name__ == "__main__":
     main()
